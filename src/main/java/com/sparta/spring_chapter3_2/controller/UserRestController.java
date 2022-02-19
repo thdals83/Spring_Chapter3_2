@@ -19,7 +19,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @RestController
 public class UserRestController {
-    private final UserRepository userRepository;
     private final UserService userService;
 
     @PostMapping("/api/register") //유저 회원가입
@@ -33,5 +32,4 @@ public class UserRestController {
         //로그인 확인
         return userService.checklogin(loginDTO);
     }
-
 }

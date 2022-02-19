@@ -7,6 +7,8 @@ import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.model.User;
 import com.sparta.spring_chapter3_2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,7 +18,14 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @Service
 public class UserService {
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     //회원가입 확인
     @Transactional
@@ -24,7 +33,7 @@ public class UserService {
 
         UserReturnDTO res = new UserReturnDTO();
 
-        String userid = requestDTO.getUserId();
+        String userid = requestDTO.getUsername();
         String password = requestDTO.getPassword();
         String userPwdCheck = requestDTO.getUserPwdCheck();
         String nickName = requestDTO.getNickName();
@@ -49,6 +58,7 @@ public class UserService {
         }
 
         User user = new User(requestDTO);
+        user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
         userRepository.save(user);
 
         res.setResult(true);
@@ -60,19 +70,19 @@ public class UserService {
     //로그인 확인
     @Transactional
     public UserReturnDTO checklogin(UserLoginDTO userLoginDTO){
-        String id = userLoginDTO.getUserId();
+        String id = userLoginDTO.getUsername();
         String pwd = userLoginDTO.getPassword();
 
         UserReturnDTO res = new UserReturnDTO();
 
         //아이디, 비밀번호 중복되면 작동안함
-        if (!userRepository.existsByuserId(id)){
+        if (!userRepository.existsByusername(id)){
             res.setResult(false);
             res.setMsg("아이디가 존재하지 않습니다.");
             return res;
         }
 
-        User user = userRepository.findByuserId(id);
+        User user = userRepository.findByUsername(id);
 
         if (!Objects.equals(user.getPassword(), pwd)){
             res.setResult(false);
@@ -87,3 +97,4 @@ public class UserService {
 
 
 }
+
