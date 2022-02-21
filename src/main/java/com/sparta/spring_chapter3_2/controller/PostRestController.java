@@ -2,14 +2,13 @@ package com.sparta.spring_chapter3_2.controller;
 
 
 import com.sparta.spring_chapter3_2.dto.PostRequestDTO;
+import com.sparta.spring_chapter3_2.dto.PostUpdateRequestDTO;
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.model.Post;
 import com.sparta.spring_chapter3_2.repository.PostRepository;
+import com.sparta.spring_chapter3_2.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostRestController {
     private final PostRepository postRepository;
+    private final PostService postService;
 
     @PostMapping("/api/post") //게시물 등록
     public UserReturnDTO createpost(@RequestBody PostRequestDTO requestDTO, HttpServletRequest request, HttpServletResponse response) {
@@ -40,9 +40,16 @@ public class PostRestController {
         return returnDTO;
     }
 
+    //좋아요 다만들면 리턴 좋아요도 같이 해주기
     @GetMapping("/api/post") //게시물 조회
     public List<Post> getPost(){
         return postRepository.findAllByOrderByModifiedAtDesc();
+    }
+
+    //게시물 수정
+    @PutMapping("/api/post") //게시물 수정
+    public UserReturnDTO putPost(@RequestBody PostUpdateRequestDTO updateRequestDTO){
+        return postService.update(updateRequestDTO);
     }
 
 }
