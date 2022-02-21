@@ -17,6 +17,6 @@ public class LikeNumber {
     private String postId;
 
     @Column(nullable = false)
-    private String username;
+    private String userId;
 
 }

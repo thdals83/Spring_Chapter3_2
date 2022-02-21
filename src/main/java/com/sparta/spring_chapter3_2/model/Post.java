@@ -2,6 +2,7 @@ package com.sparta.spring_chapter3_2.model;
 
 
 import com.sparta.spring_chapter3_2.dto.PostRequestDTO;
+import com.sparta.spring_chapter3_2.dto.PostUpdateRequestDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -37,5 +38,12 @@ public class Post extends Timestamped {
         this.image = requestDTO.getImage();
         this.type = requestDTO.getType();
     }
-    
+
+    public void update(PostUpdateRequestDTO updateRequestDTO) {
+        this.contents = updateRequestDTO.getContents();
+        this.nickName = updateRequestDTO.getNickName();
+        this.likeCount = updateRequestDTO.getLikeCount();
+        this.image = updateRequestDTO.getImage();
+        this.type = updateRequestDTO.getType();
+    }
 }
