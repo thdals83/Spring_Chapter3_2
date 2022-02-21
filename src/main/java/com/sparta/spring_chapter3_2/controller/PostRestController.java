@@ -1,6 +1,7 @@
 package com.sparta.spring_chapter3_2.controller;
 
 
+import com.sparta.spring_chapter3_2.dto.PostRemoveRequestDTO;
 import com.sparta.spring_chapter3_2.dto.PostRequestDTO;
 import com.sparta.spring_chapter3_2.dto.PostUpdateRequestDTO;
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
@@ -50,6 +51,16 @@ public class PostRestController {
     @PutMapping("/api/post") //게시물 수정
     public UserReturnDTO putPost(@RequestBody PostUpdateRequestDTO updateRequestDTO){
         return postService.update(updateRequestDTO);
+    }
+
+    //게시물 삭제
+    @DeleteMapping("/api/post") // 게시물 삭제
+    public UserReturnDTO deletePost(@RequestBody PostRemoveRequestDTO removeRequestDTO){
+        UserReturnDTO returnDTO = new UserReturnDTO();
+        postRepository.deleteById(removeRequestDTO.getPostId());
+        returnDTO.setResult(true);
+        returnDTO.setMsg("success");
+        return returnDTO;
     }
 
 }
