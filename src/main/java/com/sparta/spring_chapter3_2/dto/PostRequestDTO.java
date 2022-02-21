@@ -10,7 +10,8 @@ import javax.persistence.Column;
 public class PostRequestDTO {
 
     private String contents; //내용
-    private String username;
+    private String nickName;
     private String image; //내용
+    private String type;
 
 }

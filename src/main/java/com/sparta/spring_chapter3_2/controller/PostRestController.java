@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,8 +42,7 @@ public class PostRestController {
 
     @GetMapping("/api/post") //게시물 조회
     public List<Post> getPost(){
-        return
+        return postRepository.findAllByOrderByModifiedAtDesc();
     }
-
 
 }
