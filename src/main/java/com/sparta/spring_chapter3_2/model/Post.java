@@ -5,6 +5,7 @@ import com.sparta.spring_chapter3_2.dto.PostRequestDTO;
 import com.sparta.spring_chapter3_2.dto.PostUpdateRequestDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -30,6 +31,7 @@ public class Post extends Timestamped {
 
     @Column(nullable = false)
     private String type; //내용
+
 
     public Post(PostRequestDTO requestDTO){
         this.contents = requestDTO.getContents();
