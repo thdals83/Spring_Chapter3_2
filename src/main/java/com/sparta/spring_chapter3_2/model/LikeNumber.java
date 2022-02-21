@@ -1,5 +1,6 @@
 package com.sparta.spring_chapter3_2.model;
 
+import com.sparta.spring_chapter3_2.dto.LikeRequestDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +15,14 @@ public class LikeNumber {
     private Long id;
 
     @Column(nullable = false)
-    private String postId;
+    private Long postId;
 
     @Column(nullable = false)
-    private String userId;
+    private Long userId;
+
+    public LikeNumber(LikeRequestDTO likeRequestDTO){
+        this.postId = likeRequestDTO.getPostId();
+        this.userId = likeRequestDTO.getUserId();
+    }
 
 }
