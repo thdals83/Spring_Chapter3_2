@@ -14,12 +14,11 @@ public class HomeController {
 
     @ResponseBody
     @GetMapping("/")
-    public UserReturnDTO home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public UserReturnDTO home(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         UserReturnDTO res = new UserReturnDTO();
         res.setResult(true);
         res.setMsg(userDetails.getUsername());
 
-        model.addAttribute("username", userDetails.getUsername());
         System.out.println("성공");
         return res;
     }

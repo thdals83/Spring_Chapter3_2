@@ -94,7 +94,5 @@ public class UserService {
         res.setMsg("로그인 성공");
         return res;
     }
-
-
 }
 
