@@ -22,16 +22,20 @@ public class Post extends Timestamped {
     private int likeCount; //비밀번호
 
     @Column(nullable = false)
-    private String username; //내용
+    private String nickName; //내용
 
     @Column(nullable = false)
     private String image; //내용
 
+    @Column(nullable = false)
+    private String type; //내용
+
     public Post(PostRequestDTO requestDTO){
         this.contents = requestDTO.getContents();
         this.likeCount = 0;
-        this.username = requestDTO.getUsername();
+        this.nickName = requestDTO.getNickName();
         this.image = requestDTO.getImage();
+        this.type = requestDTO.getType();
     }
     
 }
