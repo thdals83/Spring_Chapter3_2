@@ -1,6 +1,7 @@
 package com.sparta.spring_chapter3_2.service;
 
 
+import com.sparta.spring_chapter3_2.dto.LoginReturnDTO;
 import com.sparta.spring_chapter3_2.dto.UserLoginDTO;
 import com.sparta.spring_chapter3_2.dto.UserRequestDTO;
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
@@ -59,11 +60,11 @@ public class UserService {
 
     //로그인 확인
     @Transactional
-    public UserReturnDTO checklogin(UserLoginDTO userLoginDTO){
+    public LoginReturnDTO checklogin(UserLoginDTO userLoginDTO){
         String id = userLoginDTO.getUsername();
         String pwd = userLoginDTO.getPassword();
 
-        UserReturnDTO res = new UserReturnDTO();
+        LoginReturnDTO res = new LoginReturnDTO();
 
         //아이디, 비밀번호 중복되면 작동안함
         if (!userRepository.existsByusername(id)){
@@ -81,6 +82,8 @@ public class UserService {
         }
         res.setResult(true);
         res.setMsg("로그인 성공");
+        res.setUsername(user.getUsername());
+        res.setNickName(user.getNickName());
         return res;
     }
 }

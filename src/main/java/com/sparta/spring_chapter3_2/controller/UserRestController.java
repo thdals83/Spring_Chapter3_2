@@ -1,6 +1,7 @@
 package com.sparta.spring_chapter3_2.controller;
 
 
+import com.sparta.spring_chapter3_2.dto.LoginReturnDTO;
 import com.sparta.spring_chapter3_2.dto.UserLoginDTO;
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.dto.UserRequestDTO;
@@ -28,9 +29,9 @@ public class UserRestController {
     }
 
     @PostMapping("/api/login") //유저 로그인
-    public UserReturnDTO checklogin(@RequestBody UserLoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public LoginReturnDTO checklogin(@RequestBody UserLoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //로그인 확인
-        UserReturnDTO res = userService.checklogin(loginDTO);
+        LoginReturnDTO res = userService.checklogin(loginDTO);
 
         if (res.getResult()){
             HttpSession session = request.getSession();
