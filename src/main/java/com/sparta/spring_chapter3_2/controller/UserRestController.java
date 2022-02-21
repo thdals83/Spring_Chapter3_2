@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -21,16 +26,18 @@ public class UserRestController {
         //회원가입 확인
         return userService.checkRegister(requestDTO);
     }
-    @PostMapping("/api/login") //유저 로그인
-    public String checklogin(@RequestBody UserLoginDTO loginDTO){
-        //로그인 확인
-        System.out.println("확인");
-        return "redirect:/";
-    }
 
-//    @PostMapping("/api/login") //유저 로그인
-//    public UserReturnDTO checklogin(@RequestBody UserLoginDTO loginDTO){
-//        //로그인 확인
-//        return userService.checklogin(loginDTO);
-//    }
+    @PostMapping("/api/login") //유저 로그인
+    public UserReturnDTO checklogin(@RequestBody UserLoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //로그인 확인
+        UserReturnDTO res = userService.checklogin(loginDTO);
+
+        if (res.getResult()){
+            HttpSession session = request.getSession();
+            session.setAttribute("res",res);
+            System.out.println(session.getAttribute("res"));
+
+        }
+        return res;
+    }
 }

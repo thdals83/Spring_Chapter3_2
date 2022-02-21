@@ -7,8 +7,6 @@ import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.model.User;
 import com.sparta.spring_chapter3_2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,21 +16,13 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-
-    @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     //회원가입 확인
     @Transactional
     public UserReturnDTO checkRegister(UserRequestDTO requestDTO) {
 
         UserReturnDTO res = new UserReturnDTO();
-
         String userid = requestDTO.getUsername();
         String password = requestDTO.getPassword();
         String userPwdCheck = requestDTO.getUserPwdCheck();
@@ -58,7 +48,7 @@ public class UserService {
         }
 
         User user = new User(requestDTO);
-        user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
+//        user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
         userRepository.save(user);
 
         res.setResult(true);
@@ -89,7 +79,6 @@ public class UserService {
             res.setMsg("비밀번호가 존재하지 않거나, 일치하지 않습니다.");
             return res;
         }
-
         res.setResult(true);
         res.setMsg("로그인 성공");
         return res;
