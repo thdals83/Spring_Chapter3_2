@@ -8,16 +8,22 @@ import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.model.User;
 import com.sparta.spring_chapter3_2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Service
 public class UserService {
     private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     //회원가입 확인
     @Transactional
