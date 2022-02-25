@@ -9,6 +9,7 @@ import com.sparta.spring_chapter3_2.model.User;
 import com.sparta.spring_chapter3_2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository){
@@ -54,9 +56,9 @@ public class UserService {
             return res;
         }
 
-        User user = new User(requestDTO);
+//        User user = new User(requestDTO);
 //        user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
-        userRepository.save(user);
+//        userRepository.save(user);
 
         res.setResult(true);
         res.setMsg("회원가입 성공");
@@ -93,4 +95,5 @@ public class UserService {
         return res;
     }
 }
+
 
