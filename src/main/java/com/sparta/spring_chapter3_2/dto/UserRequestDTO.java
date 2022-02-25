@@ -1,11 +1,15 @@
 package com.sparta.spring_chapter3_2.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserRequestDTO {
 
     private String username; //이메일아이디
