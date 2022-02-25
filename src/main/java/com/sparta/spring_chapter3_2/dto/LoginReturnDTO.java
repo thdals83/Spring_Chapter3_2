@@ -8,8 +8,7 @@ import lombok.Setter;
 public class LoginReturnDTO {
     private boolean result;
     private String msg;
-    private String username;
-    private String nickName;
+    private String tokenname;
 
     public boolean getResult(){
         return result;
