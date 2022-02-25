@@ -2,8 +2,7 @@ package com.sparta.spring_chapter3_2.controller;
 
 
 import com.sparta.spring_chapter3_2.dto.LikeRequestDTO;
-import com.sparta.spring_chapter3_2.dto.UserLoginDTO;
-import com.sparta.spring_chapter3_2.dto.UserRequestDTO;
+
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.repository.LikeNumberRepository;
 import com.sparta.spring_chapter3_2.service.LikeService;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,15 +21,10 @@ public class LikeRestController {
 
     //게시글 좋아요
     @PostMapping("/api/like")
-    public UserReturnDTO clicklike(@RequestBody LikeRequestDTO likeRequestDTO, HttpServletRequest request){
+    public UserReturnDTO clicklike(@RequestBody LikeRequestDTO likeRequestDTO){
         //세션 존재 확인
-        HttpSession session = request.getSession();
         UserReturnDTO returnDTO = new UserReturnDTO();
-        if (session.getAttribute("res") == null){
-            returnDTO.setResult(false);
-            returnDTO.setMsg("로그인을 해주세요");
-            return returnDTO;
-        }
+
         return likeService.pluslike(likeRequestDTO);
     }
 
@@ -41,7 +32,6 @@ public class LikeRestController {
     @DeleteMapping("/api/like")
     public UserReturnDTO deletelike(@RequestBody LikeRequestDTO likeRequestDTO){
         UserReturnDTO returnDTO = new UserReturnDTO();
-
 
         return likeService.dellike(likeRequestDTO);
     }
