@@ -11,9 +11,7 @@ import com.sparta.spring_chapter3_2.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 import java.util.List;
 
 @RestController
@@ -23,16 +21,9 @@ public class PostRestController {
     private final PostService postService;
 
     @PostMapping("/api/post") //게시물 등록
-    public UserReturnDTO createpost(@RequestBody PostRequestDTO requestDTO, HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
+    public UserReturnDTO createpost(@RequestBody PostRequestDTO requestDTO) {
         UserReturnDTO returnDTO = new UserReturnDTO();
 
-        //세션 확인
-        if (session.getAttribute("res") == null) {
-            returnDTO.setResult(false);
-            returnDTO.setMsg("로그인을 해주세요");
-            return returnDTO;
-        }
         Post post = new Post(requestDTO);
         postRepository.save(post);
         returnDTO.setResult(true);
