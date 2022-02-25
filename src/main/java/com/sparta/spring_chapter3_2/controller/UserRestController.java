@@ -14,8 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-import java.util.Map;
-
 
 @RequiredArgsConstructor
 @RestController
@@ -41,25 +39,31 @@ public class UserRestController {
 
         return returnDTO;
     }
-    ////////////////////////////////////////////////////////////////////////////////
-    // 로그인
-    @PostMapping("/login")
-    public String login(@RequestBody Map<String, String> user) {
-        User member = userRepository.findByUsername(user.get("username"));
-        if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+
+    @PostMapping("/api/login")  // 로그인
+    public LoginReturnDTO login(@RequestBody UserLoginDTO loginDTO) {
+        LoginReturnDTO returnDTO = new LoginReturnDTO();
+
+        User user = userRepository.findByUsername(loginDTO.getUsername());
+
+        //아이디가 존재하지 않을 때
+        if (!userRepository.existsByusername(loginDTO.getUsername())){
+            returnDTO.setResult(false);
+            returnDTO.setMsg("아이디가 존재하지 않습니다.");
+            returnDTO.setTokenname(null);
+            return returnDTO;
         }
-        System.out.println(jwtTokenProvider.createToken(member.getUsername(), member.getRoles()).getClass().getName());
-        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
-    }
 
-
-    @PostMapping("/api/login") //유저 로그인
-    public LoginReturnDTO checklogin(@RequestBody UserLoginDTO loginDTO){
-        //로그인 확인
-        LoginReturnDTO res = userService.checklogin(loginDTO);
-        UserReturnDTO returnDTO = new UserReturnDTO();
-
-        return res;
+        //로그인 정보 틀렸을 때
+        if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+            returnDTO.setResult(false);
+            returnDTO.setMsg("잘못된 비밀번호 입니다.");
+            returnDTO.setTokenname(null);
+            return returnDTO;
+        }
+        returnDTO.setResult(true);
+        returnDTO.setMsg("로그인 성공");
+        returnDTO.setTokenname(jwtTokenProvider.createToken(user.getUsername(), user.getRoles()));
+        return returnDTO;
     }
 }
