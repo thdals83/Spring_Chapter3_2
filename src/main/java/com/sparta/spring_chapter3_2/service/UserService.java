@@ -7,9 +7,7 @@ import com.sparta.spring_chapter3_2.dto.UserRequestDTO;
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.model.User;
 import com.sparta.spring_chapter3_2.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,7 +18,6 @@ import java.util.regex.Pattern;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository){
@@ -56,44 +53,40 @@ public class UserService {
             return res;
         }
 
-//        User user = new User(requestDTO);
-//        user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
-//        userRepository.save(user);
-
         res.setResult(true);
         res.setMsg("회원가입 성공");
         return res;
 
     }
 
-    //로그인 확인
-    @Transactional
-    public LoginReturnDTO checklogin(UserLoginDTO userLoginDTO){
-        String id = userLoginDTO.getUsername();
-        String pwd = userLoginDTO.getPassword();
-
-        LoginReturnDTO res = new LoginReturnDTO();
-
-        //아이디, 비밀번호 중복되면 작동안함
-        if (!userRepository.existsByusername(id)){
-            res.setResult(false);
-            res.setMsg("아이디가 존재하지 않습니다.");
-            return res;
-        }
-
-        User user = userRepository.findByUsername(id);
-
-        if (!Objects.equals(user.getPassword(), pwd)){
-            res.setResult(false);
-            res.setMsg("비밀번호가 존재하지 않거나, 일치하지 않습니다.");
-            return res;
-        }
-        res.setResult(true);
-        res.setMsg("로그인 성공");
-        res.setUsername(user.getUsername());
-        res.setNickName(user.getNickName());
-        return res;
-    }
+//    //로그인 확인
+//    @Transactional
+//    public LoginReturnDTO checklogin(UserLoginDTO userLoginDTO){
+//        String id = userLoginDTO.getUsername();
+//        String pwd = userLoginDTO.getPassword();
+//
+//        LoginReturnDTO res = new LoginReturnDTO();
+//
+//        //아이디, 비밀번호 중복되면 작동안함
+//        if (!userRepository.existsByusername(id)){
+//            res.setResult(false);
+//            res.setMsg("아이디가 존재하지 않습니다.");
+//            return res;
+//        }
+//
+//        User user = userRepository.findByUsername(id);
+//
+//        if (!Objects.equals(user.getPassword(), pwd)){
+//            res.setResult(false);
+//            res.setMsg("비밀번호가 존재하지 않거나, 일치하지 않습니다.");
+//            return res;
+//        }
+//        res.setResult(true);
+//        res.setMsg("로그인 성공");
+//        res.setUsername(user.getUsername());
+//        res.setNickName(user.getNickName());
+//        return res;
+//    }
 }
 
 
