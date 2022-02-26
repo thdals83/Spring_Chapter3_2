@@ -63,7 +63,7 @@ public class UserRestController {
         }
         returnDTO.setResult(true);
         returnDTO.setMsg("로그인 성공");
-        returnDTO.setTokenname(jwtTokenProvider.createToken(user.getUsername(), user.getRoles()));
+        returnDTO.setTokenname(jwtTokenProvider.createToken(user.getUsername(), user.getRoles(),user.getNickName(),user.getId()));
         return returnDTO;
     }
 }
