@@ -2,11 +2,15 @@ package com.sparta.spring_chapter3_2.dto;
 
 
 import com.sparta.spring_chapter3_2.model.Post;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostUpdateRequestDTO {
     private Long postId;
     private String contents; //내용
