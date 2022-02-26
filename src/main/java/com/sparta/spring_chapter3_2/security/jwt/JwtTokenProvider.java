@@ -28,7 +28,6 @@ public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
 
-
     // 객체 초기화, secretKey를 Base64로 인코딩한다.
     @PostConstruct
     protected void init() {
@@ -36,9 +35,11 @@ public class JwtTokenProvider {
     }
 
     // JWT 토큰 생성
-    public String createToken(String userPk, List<String> roles) {
+    public String createToken(String userPk, List<String> roles, String nickName, Long userID) {
         Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
         claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
+        claims.put("nickName", nickName);
+        claims.put("userID", userID);
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장
