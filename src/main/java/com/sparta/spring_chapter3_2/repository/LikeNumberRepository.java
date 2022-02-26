@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface LikeNumberRepository extends JpaRepository<LikeNumber, Long> {
     List<LikeNumber> findByPostIdAndUserId(Long postId, Long userId);
+    List<LikeNumber> findByUserId(Long userid);
 
 }
