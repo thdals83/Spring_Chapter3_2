@@ -1,11 +1,8 @@
 package com.sparta.spring_chapter3_2.service;
 
 
-import com.sparta.spring_chapter3_2.dto.LoginReturnDTO;
-import com.sparta.spring_chapter3_2.dto.UserLoginDTO;
 import com.sparta.spring_chapter3_2.dto.UserRequestDTO;
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
-import com.sparta.spring_chapter3_2.model.User;
 import com.sparta.spring_chapter3_2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,11 +28,11 @@ public class UserService {
         UserReturnDTO res = new UserReturnDTO();
         String userid = requestDTO.getUsername();
         String password = requestDTO.getPassword();
-        String userPwdCheck = requestDTO.getUserPwdCheck();
+        String passwordCheck = requestDTO.getPasswordCheck();
         String nickName = requestDTO.getNickName();
 
         //비밀번호 일치하지 않을 때
-        if (!Objects.equals(password, userPwdCheck)){
+        if (!Objects.equals(password, passwordCheck)){
             res.setResult(false);
             res.setMsg("비밀번호가 일치하지 않습니다.");
             return res;
@@ -59,34 +56,6 @@ public class UserService {
 
     }
 
-//    //로그인 확인
-//    @Transactional
-//    public LoginReturnDTO checklogin(UserLoginDTO userLoginDTO){
-//        String id = userLoginDTO.getUsername();
-//        String pwd = userLoginDTO.getPassword();
-//
-//        LoginReturnDTO res = new LoginReturnDTO();
-//
-//        //아이디, 비밀번호 중복되면 작동안함
-//        if (!userRepository.existsByusername(id)){
-//            res.setResult(false);
-//            res.setMsg("아이디가 존재하지 않습니다.");
-//            return res;
-//        }
-//
-//        User user = userRepository.findByUsername(id);
-//
-//        if (!Objects.equals(user.getPassword(), pwd)){
-//            res.setResult(false);
-//            res.setMsg("비밀번호가 존재하지 않거나, 일치하지 않습니다.");
-//            return res;
-//        }
-//        res.setResult(true);
-//        res.setMsg("로그인 성공");
-//        res.setUsername(user.getUsername());
-//        res.setNickName(user.getNickName());
-//        return res;
-//    }
 }
 
 
