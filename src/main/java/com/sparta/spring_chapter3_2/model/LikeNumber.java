@@ -14,16 +14,18 @@ public class LikeNumber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long postId;
-
     @ManyToOne
     @JsonBackReference
+    @JoinColumn(name = "POST_ID")
+    private Post post;
+
+    //    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    public LikeNumber(Long postId, User user) {
-        this.postId = postId;
+    public LikeNumber(Post post, User user) {
+        this.post = post;
         this.user = user;
     }
 
