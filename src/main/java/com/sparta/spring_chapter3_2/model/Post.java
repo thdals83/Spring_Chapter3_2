@@ -5,7 +5,6 @@ import com.sparta.spring_chapter3_2.dto.PostRequestDTO;
 import com.sparta.spring_chapter3_2.dto.PostUpdateRequestDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -14,7 +13,7 @@ import javax.persistence.*;
 @Entity
 public class Post extends Timestamped {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
