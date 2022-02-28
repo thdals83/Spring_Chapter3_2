@@ -2,12 +2,10 @@ package com.sparta.spring_chapter3_2.controller;
 
 
 import com.sparta.spring_chapter3_2.dto.LikeRequestDTO;
-
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.repository.LikeNumberRepository;
 import com.sparta.spring_chapter3_2.service.LikeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,12 +25,4 @@ public class LikeRestController {
 
         return likeService.pluslike(likeRequestDTO);
     }
-
-//    //어차피 로그인 해야 좋아요 보여서 세션 존재 확인 스킵
-//    @PostMapping("/api/like")
-//    public UserReturnDTO deletelike(@RequestBody LikeRequestDTO likeRequestDTO){
-//        UserReturnDTO returnDTO = new UserReturnDTO();
-//
-//        return likeService.dellike(likeRequestDTO);
-//    }
 }
