@@ -15,7 +15,7 @@ public class LikeListDTO {
 
     public LikeListDTO(LikeNumber likeNumber){
         this.id = likeNumber.getId();
-        this.postId = likeNumber.getPostId();
+        this.postId = likeNumber.getPost().getId();
         this.userId = likeNumber.getUser().getId();
     }
 
