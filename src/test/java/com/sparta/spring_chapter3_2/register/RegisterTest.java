@@ -37,6 +37,5 @@ public class RegisterTest {
 
         assertEquals(true,returnDTO.getResult());
 
-
     }
 }

@@ -33,8 +33,8 @@ public class User extends Timestamped implements UserDetails {
     @Column(nullable = false)
     private String nickName; //닉네임
 
-//    @OneToMany(mappedBy = "user")
-//    List<LikeNumber> likeNumber = new ArrayList<LikeNumber>();
+    @OneToMany(mappedBy = "user")
+    List<LikeNumber> likeNumber = new ArrayList<LikeNumber>();
 
 
     ///////////////////////////////////////////
