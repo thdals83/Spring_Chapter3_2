@@ -5,19 +5,23 @@ import com.sparta.spring_chapter3_2.dto.PostUpdateRequestDTO;
 import com.sparta.spring_chapter3_2.dto.UserReturnDTO;
 import com.sparta.spring_chapter3_2.model.LikeNumber;
 import com.sparta.spring_chapter3_2.model.Post;
+import com.sparta.spring_chapter3_2.model.User;
 import com.sparta.spring_chapter3_2.repository.LikeNumberRepository;
 import com.sparta.spring_chapter3_2.repository.PostRepository;
+import com.sparta.spring_chapter3_2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class LikeService {
     private final LikeNumberRepository likeNumberRepository;
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public UserReturnDTO pluslike(LikeRequestDTO likeRequestDTO){
@@ -46,8 +50,11 @@ public class LikeService {
         }
 
         //좋아요 DB 저장
-        LikeNumber likeNumber = new LikeNumber(likeRequestDTO);
-        likeNumberRepository.save(likeNumber);
+        Optional<User> user = userRepository.findById(likeRequestDTO.getUserId());
+        user.ifPresent(user1 -> {
+            LikeNumber likeNumber = new LikeNumber(likeRequestDTO.getPostId(),user1);
+            likeNumberRepository.save(likeNumber);
+        });
 
         //해당 POST 게시물 likecount +1 해주기
         Post post = postRepository.findById(likeRequestDTO.getPostId())
@@ -64,19 +71,4 @@ public class LikeService {
         returnDTO.setMsg("성공");
         return returnDTO;
     }
-
-//    @Transactional
-//    public UserReturnDTO dellike(LikeRequestDTO likeRequestDTO) {
-//        UserReturnDTO returnDTO = new UserReturnDTO();
-//
-//        //값이 존재하지 않을 때 (생길 일은 없음)
-//        int likecnt = likeNumberRepository.findByPostIdAndUserId(likeRequestDTO.getPostId(),likeRequestDTO.getUserId()).size();
-//        if (likecnt == 0){
-//            returnDTO.setResult(false);
-//            returnDTO.setMsg("값이 존재하지 않습니다..");
-//            return returnDTO;
-//        }
-//
-//
-//    }
 }
