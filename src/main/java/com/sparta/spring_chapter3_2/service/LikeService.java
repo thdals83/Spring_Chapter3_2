@@ -32,7 +32,6 @@ public class LikeService {
         if (likecnt != 0){
             //like 디비에서 삭제
             List <LikeNumber> likeinfo = likeNumberRepository.findByPostIdAndUserId(likeRequestDTO.getPostId(),likeRequestDTO.getUserId());
-            System.out.println(likeinfo.get(0).getId());
             likeNumberRepository.deleteById(likeinfo.get(0).getId());
 
             //해당 POST 게시물 likecount  - 1 해주기
@@ -51,9 +50,13 @@ public class LikeService {
 
         //좋아요 DB 저장
         Optional<User> user = userRepository.findById(likeRequestDTO.getUserId());
+        Optional<Post> post2 = postRepository.findById(likeRequestDTO.getPostId());
+
         user.ifPresent(user1 -> {
-            LikeNumber likeNumber = new LikeNumber(likeRequestDTO.getPostId(),user1);
-            likeNumberRepository.save(likeNumber);
+            post2.ifPresent(post1 ->{
+                LikeNumber likeNumber = new LikeNumber(post1,user1);
+                likeNumberRepository.save(likeNumber);
+            });
         });
 
         //해당 POST 게시물 likecount +1 해주기
