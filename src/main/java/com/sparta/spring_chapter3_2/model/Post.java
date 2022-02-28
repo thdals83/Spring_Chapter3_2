@@ -1,12 +1,15 @@
 package com.sparta.spring_chapter3_2.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sparta.spring_chapter3_2.dto.PostRequestDTO;
 import com.sparta.spring_chapter3_2.dto.PostUpdateRequestDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -31,6 +34,9 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String type; //내용
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @JsonBackReference
+    private List<LikeNumber> likeNumber = new ArrayList<>();
 
     public Post(PostRequestDTO requestDTO){
         this.contents = requestDTO.getContents();
