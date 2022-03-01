@@ -54,8 +54,11 @@ public class LikeService {
 
         user.ifPresent(user1 -> {
             post2.ifPresent(post1 ->{
-                LikeNumber likeNumber = new LikeNumber(post1,user1);
-                likeNumberRepository.save(likeNumber);
+                likeNumberRepository.save(LikeNumber.builder()
+                        .user(user1)
+                        .post(post1)
+                        .build()
+                );
             });
         });
 
