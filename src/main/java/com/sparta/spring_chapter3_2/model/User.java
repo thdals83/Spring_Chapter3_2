@@ -36,7 +36,6 @@ public class User extends Timestamped implements UserDetails {
     @OneToMany(mappedBy = "user")
     List<LikeNumber> likeNumber = new ArrayList<LikeNumber>();
 
-
     ///////////////////////////////////////////
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
