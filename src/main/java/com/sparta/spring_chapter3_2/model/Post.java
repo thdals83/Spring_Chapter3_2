@@ -4,6 +4,8 @@ package com.sparta.spring_chapter3_2.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sparta.spring_chapter3_2.dto.PostRequestDTO;
 import com.sparta.spring_chapter3_2.dto.PostUpdateRequestDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@AllArgsConstructor
+@Builder
 public class Post extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,14 +41,6 @@ public class Post extends Timestamped {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     @JsonBackReference
     private List<LikeNumber> likeNumber = new ArrayList<>();
-
-    public Post(PostRequestDTO requestDTO){
-        this.contents = requestDTO.getContents();
-        this.likeCount = 0;
-        this.nickName = requestDTO.getNickName();
-        this.image = requestDTO.getImage();
-        this.type = requestDTO.getType();
-    }
 
     public void update(PostUpdateRequestDTO updateRequestDTO) {
         this.contents = updateRequestDTO.getContents();
