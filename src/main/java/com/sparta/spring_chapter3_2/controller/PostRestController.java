@@ -28,8 +28,13 @@ public class PostRestController {
     public UserReturnDTO createpost(@RequestBody PostRequestDTO requestDTO) {
         UserReturnDTO returnDTO = new UserReturnDTO();
 
-        Post post = new Post(requestDTO);
-        postRepository.save(post);
+        postRepository.save(Post.builder()
+                .contents(requestDTO.getContents())
+                .likeCount(0)
+                .nickName(requestDTO.getNickName())
+                .image(requestDTO.getImage())
+                .type(requestDTO.getType())
+                .build()).getId();
         returnDTO.setResult(true);
         returnDTO.setMsg("success");
 
