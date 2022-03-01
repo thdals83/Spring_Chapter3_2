@@ -14,9 +14,4 @@ public class LoginGetReturnDTO {
     private List<Post> total;
     private List<LikeListDTO> myLike;
 
-//    LoginGetReturnDTO(List<Post> total, List<LikeNumber> myLike){
-//        this.total = total;
-//        this.myLike = myLike;
-//    }
-
 }
