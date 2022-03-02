@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostgetDTO {
     private Long userId;
-
 }
