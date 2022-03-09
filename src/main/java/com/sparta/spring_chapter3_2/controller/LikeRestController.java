@@ -25,6 +25,5 @@ public class LikeRestController {
 
         return likeService.pluslike(likeRequestDTO);
 
-        Lis
     }
 }
