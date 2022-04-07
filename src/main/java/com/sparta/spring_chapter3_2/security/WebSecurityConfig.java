@@ -16,7 +16,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @RequiredArgsConstructor
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -51,13 +50,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
                 .and()
                 .authorizeRequests() // 요청에 대한 사용권한 체크
-                .antMatchers("/api/register").permitAll()
-                .antMatchers("/api/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/showpost").permitAll()
-                .anyRequest().authenticated()
+//                .antMatchers("/api/register").permitAll()
+//                .antMatchers("/api/login").permitAll()
+//                .antMatchers(HttpMethod.POST,"/api/showpost").permitAll()
+//                .anyRequest().authenticated()
 //                .antMatchers("/admin/**").hasRole("ADMIN")
 //                .antMatchers("/user/**").hasRole("USER")
-//                .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
+                .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
