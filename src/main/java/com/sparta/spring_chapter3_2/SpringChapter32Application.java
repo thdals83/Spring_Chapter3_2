@@ -15,12 +15,14 @@ public class SpringChapter32Application {
         SpringApplication.run(SpringChapter32Application.class, args);
     }
 
+    //CORS 차단 풀어주는거 나중에 주소 변경하기
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000/");
+                registry.addMapping("/**").allowedOrigins("*")
+                        .allowedMethods("GET","POST","DELETE","PUT");
             }
         };
     }

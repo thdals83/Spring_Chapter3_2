@@ -26,6 +26,7 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String contents; //내용
 
+
     @Column(nullable = false)
     private int likeCount; //비밀번호
 
@@ -41,6 +42,7 @@ public class Post extends Timestamped {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     @JsonBackReference
     private List<LikeNumber> likeNumber = new ArrayList<>();
+
 
     public void update(PostUpdateRequestDTO updateRequestDTO) {
         this.contents = updateRequestDTO.getContents();

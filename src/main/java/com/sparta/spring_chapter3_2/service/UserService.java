@@ -40,7 +40,7 @@ public class UserService {
         //닉네임 틀렸을 때
         if (password.contains(nickName) || password.length() < 4){
             res.setResult(false);
-            res.setMsg("닉네임이 4글자 이하거나, 패스워드에 닉네임이 포함되어있습니다.");
+            res.setMsg("패스워드가 4글자 이하거나, 패스워드에 닉네임이 포함되어있습니다.");
             return res;
         }
         // 닉네임이 알맞지 않을 때
