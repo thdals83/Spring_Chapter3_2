@@ -26,6 +26,7 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String contents; //내용
 
+
     @Column(nullable = false)
     private int likeCount; //비밀번호
 
