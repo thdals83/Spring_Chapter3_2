@@ -43,7 +43,6 @@ public class Post extends Timestamped {
     @JsonBackReference
     private List<LikeNumber> likeNumber = new ArrayList<>();
 
-
     public void update(PostUpdateRequestDTO updateRequestDTO) {
         this.contents = updateRequestDTO.getContents();
         this.nickName = updateRequestDTO.getNickName();
